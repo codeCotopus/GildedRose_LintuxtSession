@@ -8,22 +8,20 @@ class GildedRoseTest {
 
     @Test
     void sellingValue_DecreasesEveryTime_ForNonLegendaries() {
-
         Item[] items = new Item[]{new Item("foo", 0, 0)};
-        GildedRose app = new GildedRose(items);
-        app.updateQuality(); // This is how we move days ahead.
-
-        assertEquals(-1, items[0].sellIn);
-
+        assertSellinValue(items, -1);
     }
 
     @Test
     void sellingValue_DoesNotDecrease_ForLegendaries() {
         Item [] items = new Item[] {new Item("Sulfuras, Hand of Ragnaros", 2, 80)};
+        assertSellinValue(items, 2);
+    }
+
+    private void assertSellinValue(Item[] items, int i) {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-
-        assertEquals(2, items[0].sellIn);
-
+        assertEquals(i, items[0].sellIn);
     }
+
 }
